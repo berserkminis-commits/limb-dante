@@ -1,132 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Лимб — Первый круг ада</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: "Georgia", serif;
-            background: #0d0d0d;
-            color: #e3dcd2;
-            animation: fadeIn 1s ease-out;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Лимб — Первый круг Ада (Данте)</title>
+<meta name="description" content="Лимб — первый круг ада у Данте. Досье, герои, архитектура, стражи, цитаты и атмосферный визуал." />
+<style>
+  :root{
+    --bg:#080607;
+    --panel:#141213;
+    --muted:#bdb3ab;
+    --accent:#b84b3a;
+    --gold:#d6b37a;
+    --glass: rgba(255,255,255,0.03);
+    font-family: "Georgia", serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background: linear-gradient(180deg,#0b0b0b 0%, #121010 60%);
+    color:#efe6df;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  .wrap{max-width:1100px;margin:28px auto;padding:18px}
+  header{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;padding:28px;border-radius:12px}
+  .title{font-size:44px;letter-spacing:2px;color:var(--gold);text-shadow:0 6px 30px rgba(184,75,58,0.07)}
+  .epigraph{font-style:italic;color:var(--muted);max-width:900px}
+  nav{margin-top:8px}
+  nav a{color:var(--muted);text-decoration:none;margin:0 10px;font-weight:600}
+  nav a:hover{color:#fff}
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
+  /* Hero visual */
+  .hero{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px;align-items:center}
+  @media(min-width:900px){.hero{grid-template-columns:1fr 420px}}
+  .hero .lead{padding:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+  .hero img{width:100%;height:auto;border-radius:10px;display:block;box-shadow:0 20px 50px rgba(0,0,0,0.6)}
 
-        header {
-            background: linear-gradient(to bottom, #2d0f0f, #0d0d0d);
-            padding: 60px 20px;
-            text-align: center;
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.15);
-        }
+  /* Sections */
+  section{margin-top:26px;padding:20px;background:rgba(255,255,255,0.015);border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+  h2{margin:0 0 12px 0;color:var(--gold)}
+  p{color:var(--muted);line-height:1.6}
 
-        h1 {
-            font-size: 64px;
-            margin: 0;
-            text-shadow: 0 0 20px rgba(255, 80, 80, 0.4);
-            letter-spacing: 3px;
-        }
+  /* dossier grid */
+  .dossier{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:760px){.dossier{grid-template-columns:250px 1fr}}
 
-        .subtitle {
-            font-size: 22px;
-            margin-top: 10px;
-            color: #c9b3b3;
-        }
+  .meta{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+  .meta .k{font-weight:700;color:var(--accent);margin-bottom:6px}
 
-        .content {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 30px;
-            background: rgba(40, 20, 20, 0.25);
-            border: 1px solid rgba(140,0,0,0.3);
-            border-radius: 12px;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.08);
-            backdrop-filter: blur(4px);
-            line-height: 1.75;
-        }
+  /* gallery */
+  .gallery{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+  .figure{width:320px;background:rgba(0,0,0,0.15);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+  .figure img{width:100%;height:auto;border-radius:6px}
+  .figure h3{margin:10px 0 6px 0;color:var(--gold)}
+  .figure p{color:var(--muted);font-size:14px}
 
-        .quote {
-            font-style: italic;
-            color: #e6c8c8;
-            margin: 30px 0;
-            padding-left: 20px;
-            border-left: 4px solid #802020;
-        }
+  /* bestiary */
+  .bestiary-row{display:flex;gap:12px;flex-wrap:wrap}
+  .monster{flex:1;min-width:220px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
 
-        .image-box {
-            margin-bottom: 25px;
-            text-align: center;
-        }
+  /* map */
+  .map{
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:12px;
+  }
+  .map svg{max-width:320px;border-radius:8px;background:rgba(0,0,0,0.12);padding:8px}
 
-        .image-box img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.2);
-            transition: transform .4s ease;
-        }
-
-        .image-box img:hover {
-            transform: scale(1.03);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #7a5a5a;
-            font-size: 14px;
-            margin-top: 40px;
-        }
-    </style>
+  footer{margin-top:26px;color:var(--muted);font-size:13px;text-align:center;padding:12px}
+  .sources{font-size:13px;color:var(--muted);line-height:1.5;margin-top:12px}
+  .small{font-size:13px;color:var(--muted)}
+  a.src{color:var(--muted);text-decoration:underline}
+</style>
 </head>
-
 <body>
+  <div class="wrap">
+    <!-- Header / Главный экран -->
+    <header role="banner">
+      <div class="title">Лимб — Первый круг Ада</div>
 
-<header>
-    <h1>Лимб</h1>
-    <div class="subtitle">Первый круг ада из «Божественной комедии» Данте</div>
-</header>
+      <div class="epigraph">
+        <div style="font-style:italic">«Quivi sospiri, pianti e alti guai risonavan per l'aere sanza stelle, / per ch'io al cominciar ne lagrimai.»</div>
+        <div style="margin-top:6px;color:var(--muted)">«Там вздохи, плач и горести гремели по воздуху без звёзд; от этого я сначала заплакал.» — Данте, «Inferno», Канто IV.</div>
+      </div>
 
-<div class="content">
+      <nav aria-label="Навигация">
+        <a href="#dossier">Досье на круг</a>
+        <a href="#gallery">Галерея грешников</a>
+        <a href="#bestiary">Бестиарий</a>
+        <a href="#landscape">Архитектура и пейзаж</a>
+        <a href="#sources">Источники</a>
+      </nav>
+    </header>
 
-    <div class="image-box">
-        <img src="https://i.imgur.com/Zl6i2Sh.jpeg" alt="Лимб, Данте">
+    <!-- Hero визуал -->
+    <div class="hero" role="region" aria-label="Визуал Лимба">
+      <div class="lead">
+        <h2>Атмосферный отрывок</h2>
+        <p class="small" style="color:var(--muted)">
+          Лимб — не пламя и не пытки, а печаль и лишённость блаженства. Здесь живут великие умы, лишённые крещения и вечного света.
+        </p>
+        <p style="margin-top:12px;color:var(--muted)">Ниже — подробное досье, персонажи и объяснение, почему наказание здесь — зеркало греха.</p>
+      </div>
+
+      <!-- визуал (Gustave Doré public domain иллюстрация) -->
+      <figure style="margin:0;">
+        <img alt="Illustration: Dante and Virgil in Limbo by Gustave Doré" src="https://upload.wikimedia.org/wikipedia/commons/9/90/Gustave_Dor%C3%A9_-_Dante_Alighieri_-_Inferno_-_Plate_11_%28Canto_IV_-_Limbo%2C_the_Viruous_Pagans%29.jpg">
+        <figcaption class="small" style="text-align:center;color:var(--muted);margin-top:8px">Gustave Doré — иллюстрация к Канто IV (Limbo). Источник: Wikimedia Commons</figcaption>
+      </figure>
     </div>
 
-    <p>
-        Лимб — это самый тихий и спокойный круг ада. Здесь нет огня, нет пыток,
-        нет криков. Только вечный сумрак и бесконечная тоска по тому, чего
-        обитатели Лимба никогда не увидят — божественному свету.
-    </p>
+    <!-- 2. Досье на круг -->
+    <section id="dossier" aria-labelledby="dossier-title">
+      <h2 id="dossier-title">Досье на Круг</h2>
+      <div class="dossier">
+        <div class="meta">
+          <div class="k">Номер и название</div>
+          <div>Первый круг — Лимб (Limbo)</div>
 
-    <div class="quote">
-        «Здесь скорбь без муки; тьма без гнева; души великих людей, которым не
-        хватило одного шага — веры».
-    </div>
+          <div style="margin-top:10px" class="k">Ключевая цитата</div>
+          <div style="font-style:italic;color:#e9d8c6">
+            «Quivi sospiri, pianti e alti guai risonavan per l'aere sanza stelle...» <br><span class="small" style="color:var(--muted)">— Данте, Inferno, Canto IV.</span>
+          </div>
 
-    <p>
-        В Лимбе находятся праведные язычники и великие умы эпох: Гомер, Овидий,
-        Сократ, Аристотель. Они не виновны, но и не спасены. Их наказание — быть
-        навечно отделёнными от высшего света, оставаясь в благородной, но
-        безнадёжной тени.
-    </p>
+          <div style="margin-top:10px" class="k">Кто здесь страдает?</div>
+          <div>Праведные язычники, некрещёные младенцы и души, жившие до Христа — люди добродетельные, но без участия христианского Таинства.</div>
 
-    <p>
-        Данте описывает Лимб как место, где величие соединяется со скорбью,
-        спокойствие — с обречённостью. Это круг, в котором не страдают телом,
-        но страдает душа.
-    </p>
+          <div style="margin-top:10px" class="k">Божественная кара (контраппасо)</div>
+          <div>Наказание Лимба — не мучение телесное, а лишение: эти души навечно отделены от божественного света. Контраппасо здесь — талант и добродетель есть, но от них не исходит спасение; их заслуги превращаются в вечную тоску по тому, чего им никогда не достать.</div>
+        </div>
 
-</div>
+        <div style="padding-left:14px">
+          <h3 style="margin-top:0;color:var(--gold)">Комментарий</h3>
+          <p class="small" style="color:var(--muted)">
+            Лимб — особая моральная и поэтическая идея у Данте: он признаёт человеческую добродетель вне христианства, но в его структуре спасение требует веры/милости. Здесь сочетается уважение к классике и трагедия невозврата.
+          </p>
+        </div>
+      </div>
+    </section>
 
-<footer>
-    Сделано по мотивам «Божественной комедии»
-</footer>
+    <!-- 3. Галерея грешников -->
+    <section id="gallery" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">Галерея грешников (избранные личности)</h2>
+      <div class="gallery">
 
+        <!-- Homer -->
+        <article class="figure" aria-labelledby="homer">
+          <img alt="Homer (Doré illustration group)" src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Inferno%2C_Canto_4%3A_Homer%2C_the_poets%2C_and_heroes_in_Limbo_%28after_Dor%C3%A9%29.jpg">
+          <h3 id="homer">Гомер</h3>
+          <p><strong>Кто был:</strong> древнегреческий эпический поэт, автор «Илиады» и «Одиссеи».</p>
+          <p><strong>Грех:</strong> не христианин (жил в дохристианскую эпоху), потому не имеет крещения.</p>
+          <p><strong>Диалог с Данте:</strong> Встречает Данте и Вергилия как почётного коллегу; поэты приветствуют Вергилия и принимают Данте в круг своих. Чувства — достоинство, но печаль от невозможности блаженства.</p>
+        </article>
+
+        <!-- Virgil -->
+        <article class="figure" aria-labelledby="virgil">
+          <img alt="Virgil (Doré illustration)" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Dante_and_Virgil%2C_in_Limbo._Illustration_by_Gustave_Dore.jpg">
+          <h3 id="virgil">Вергилий</h3>
+          <p><strong>Кто был:</strong> римский поэт (Эней, Буколики), учитель Поэзии и символ разума в «Божественной комедии».</p>
+          <p><strong>Грех:</strong> язычество/рождение до Христа — помещён в Лимб.</p>
+          <p><strong>Диалог с Данте:</strong> Вергилий — проводник Данте. Он объясняет, что души в Лимбе благородны, но лишены света; проявляет сострадание и спокойное принятие своей участи.</p>
+        </article>
+
+        <!-- Aristotle -->
+        <article class="figure" aria-labelledby="aristotle">
+          <img alt="Aristotle portrait" src="https://upload.wikimedia.org/wikipedia/commons/2/29/Aristotle_Altemps_Inv8575.jpg">
+          <h3 id="aristotle">Аристотель</h3>
+          <p><strong>Кто был:</strong> древнегреческий философ, учитель логики и метафизики.</p>
+          <p><strong>Грех:</strong> снова — дохристианская эпоха; высокие моральные и интеллектуальные достижения не заменяют спасения через откровение.</p>
+          <p><strong>Диалог с Данте:</strong> Аристотель относится к группе мудрецов, которые принимают Данте с уважением; их разговоры носят скорее торжественный и философский характер, чем покаянный.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 4. Бестиарий -->
+    <section id="bestiary" aria-labelledby="bestiary-title">
+      <h2 id="bestiary-title">Бестиарий Ада: стражи и монстры</h2>
+
+      <p class="small" style="color:var(--muted)">
+        В отличие от нижних кругов, в Лимбе нет типичных зверей-мучителей вроде Цербера или Минотавра. Лимб описан как мир спокойный, без пыток; нет активных чудовищ, разоряющих души. Вместо этого присутствует архитектурный элемент — большой замок/двор, окружённый семью стенами, за которыми находятся покои мудрецов. Вico: Данте подчёркивает отсутствие суровых стражей и наличие уважения между обитателями. 
+      </p>
+
+      <div class="bestiary-row" style="margin-top:12px">
+        <div class="monster">
+          <strong>Стражи/монстры:</strong>
+          <p class="small" style="color:var(--muted)">нет активных чудовищ; роль «проводника» выполняет Вергилий. Однако в структуре ада присутствуют фигуры, которые появляются в других канто (например, Харон у входа в ад), но они не действуют непосредственно в Лимбе.</p>
+        </div>
+
+        <div class="monster">
+          <strong>Происхождение</strong>
+          <p class="small" style="color:var(--muted)">Мифологические существа, знакомые из греко-римской традиции, встречаются в поэме в разных кругах, но в Лимбе их минимум.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Архитектура и пейзаж -->
+    <section id="landscape" aria-labelledby="landscape-title">
+      <h2 id="landscape-title">Архитектура и пейзаж</h2>
+
+      <p class="small" style="color:var(--muted)">
+        Данте описывает Лимб как большой дворец или поле с зелёными лужайками и тенистыми садами, окружённое стенами и воротами. Внутри — покои и беседы великих душ; атмосфера — сумрак, без звёздного света, со шёпотом и тихой печалью (вздохи, плач). Здесь нет запаха гниения и огня, а есть легкая меланхолия и ощущение утраты.
+      </p>
+
+      <!-- Простая карта-схема -->
+      <div class="map" role="img" aria-label="Схема расположения первого круга">
+        <svg viewBox="0 0 360 260" width="360" height="260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="0" width="360" height="260" fill="#0f0d0d" rx="8"/>
+          <!-- nine circles vertical schematic -->
+          <!-- top = Limbo -->
+          <g transform="translate(40,20)">
+            <rect x="0" y="0" width="60" height="40" rx="6" fill="#2b1414"/>
+            <text x="30" y="25" font-size="12" text-anchor="middle" fill="#f0e0d8">I - Лимб</text>
+
+            <g transform="translate(0,60)">
+              <rect x="0" y="0" width="60" height="40" rx="6" fill="#2f1717"/>
+              <text x="30" y="25" font-size="12" text-anchor="middle" fill="#d6b37a">II</text>
+            </g>
+
+            <g transform="translate(0,120)">
+              <rect x="0" y="0" width="60" height="40" rx="6" fill="#441b1b"/>
+              <text x="30" y="25" font-size="12" text-anchor="middle" fill="#d6b37a">III</text>
+            </g>
+
+            <g transform="translate(0,180)">
+              <rect x="0" y="0" width="60" height="40" rx="6" fill="#5a1f1f"/>
+              <text x="30" y="25" font-size="12" text-anchor="middle" fill="#d6b37a">...IX</text>
+            </g>
+
+            <text x="110" y="20" font-size="12" fill="#bdb3ab">Схема (высокий уровень):</text>
+            <text x="110" y="38" font-size="11" fill="#bdb3ab">Лимб находится вверху — перед кругами мучений.</text>
+          </g>
+        </svg>
+
+        <div style="max-width:360px">
+          <p style="margin:0;color:var(--muted)">Карта условна: Лимб расположен у вершины адской структуры — это порог, где ещё нет мучений, но и нет надежды на блаженство.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:12px;color:var(--muted)"><strong>Звуки и ощущения:</strong> шёпоты, отзвуки разговоров, тихие вздохи; освещение — сумрачное, напоминающее закат; запахи — нейтральные, без смрада огня.</p>
+    </section>
+
+    <!-- 7. Источники -->
+    <section id="sources" aria-labelledby="sources-title">
+      <h2 id="sources-title">Источники</h2>
+
+      <div class="sources">
+        <ol>
+          <li>Текст Данте — <em>Inferno</em>, Канто IV (оригинал и переводы). (см. издание на Project Gutenberg / Liberty Fund). :contentReference[oaicite:0]{index=0}</li>
+          <li>Обзор и анализ круга Лимб — Danteworlds (университет Техаса). :contentReference[oaicite:1]{index=1}</li>
+          <li>Статья «First circle of hell» — Wikipedia (описание, замок с семью стенами, состав обитателей). :contentReference[oaicite:2]{index=2}</li>
+          <li>Иллюстрации Gustave Doré (общественное достояние) — Wikimedia Commons (plate for Canto IV). </li>
+          <li>Роль Вергилия и комментарии — академические ресурсы (Leeds, Study.com и др.). :contentReference[oaicite:4]{index=4}</li>
+        </ol>
+
+        <p style="margin-top:12px;color:var(--muted)">Примечание: для цитат используйте академические издания/критические переводы при подготовке исследовательских работ.</p>
+
+      </div>
+    </section>
+
+    <footer>
+      Сделано по мотивам «Божественной комедии» Данте Алигьери.  
+      <div class="small" style="margin-top:8px;color:var(--muted)">Хочешь — упакую это в ZIP с изображениями и готовым `index.html` для заливки на GitHub Pages.</div>
+    </footer>
+  </div>
 </body>
 </html>
